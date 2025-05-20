@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,18 +14,26 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { LoginSchema } from "../schema";
 import useLogin from "@/hooks/api/auth/useLogin";
+import { useAuth } from "@/hooks/useAuth";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const { mutateAsync: login, isPending } = useLogin();
+  const { isLoginBlocked, getBlockRemainingTime } = useAuth();
+
+  const isBlocked = isLoginBlocked();
+  const remainingTime = getBlockRemainingTime();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      await login(values);
+      if (!isBlocked) {
+        await login(values).catch(() => {
+        });
+      }
     },
   });
 
@@ -40,6 +47,15 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={formik.handleSubmit}>
             <div className="flex flex-col gap-6">
+              {isBlocked && (
+                <div className="rounded border border-red-400 bg-red-100 p-3 text-red-700">
+                  <p>
+                    Terlalu banyak percobaan gagal. Silakan coba lagi dalam{" "}
+                    {remainingTime} menit.
+                  </p>
+                </div>
+              )}
+
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -51,6 +67,7 @@ export function LoginForm({
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  disabled={isBlocked || isPending}
                 />
                 {formik.touched.email && !!formik.errors.email && (
                   <p className="text-xs text-red-500">{formik.errors.email}</p>
@@ -60,7 +77,6 @@ export function LoginForm({
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-
                 <Input
                   id="password"
                   name="password"
@@ -70,6 +86,7 @@ export function LoginForm({
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  disabled={isBlocked || isPending}
                 />
                 {formik.touched.password && !!formik.errors.password && (
                   <p className="text-xs text-red-500">
@@ -77,8 +94,16 @@ export function LoginForm({
                   </p>
                 )}
               </div>
-              <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending ? "Loading" : "Login"}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isPending || isBlocked}
+              >
+                {isPending
+                  ? "Loading"
+                  : isBlocked
+                    ? `Diblokir (${remainingTime} menit)`
+                    : "Login"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
