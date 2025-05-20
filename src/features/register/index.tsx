@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { RegisterForm } from "./components/RegisterForm";
+import AuthGuard from "@/components/guards/AuthGuard";
 
 const RegisterPage = () => {
   const { data: session, status } = useSession();
@@ -25,7 +26,9 @@ const RegisterPage = () => {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <RegisterForm />
+        <AuthGuard authPage={true}>
+          <RegisterForm />
+        </AuthGuard>
       </div>
     </div>
   );

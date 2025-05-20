@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ResetPasswordForm } from "./components/ResetPasswordForm";
+import AuthGuard from "@/components/guards/AuthGuard";
 
 interface ResetPasswordPageProps {
   token: string;
@@ -29,7 +30,9 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ token }) => {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <ResetPasswordForm token={token} />
+        <AuthGuard authPage={true}>
+          <ResetPasswordForm token={token} />
+        </AuthGuard>
       </div>
     </div>
   );

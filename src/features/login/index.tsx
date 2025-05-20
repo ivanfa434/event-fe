@@ -1,33 +1,41 @@
+// contoh menggunakan client component
+// features/login/index.tsx
 "use client";
-
-import React, { useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import React from "react";
 import { LoginForm } from "./components/LoginForm";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import Loading from "@/components/loading";
+import AuthGuard from "@/components/guards/AuthGuard";
 
 const LoginPage = () => {
-  const { data: session, status } = useSession();
+  const { status, isAuthenticated, userRole } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "loading") return; // tunggu session load dulu
-    if (session) {
-      // redirect sesuai role
-      if (session.user.role === "ADMIN") {
-        router.push("/admin");
+  React.useEffect(() => {
+    if (status === "loading") return;
+
+    if (isAuthenticated) {
+      if (userRole === "ADMIN") {
+        router.replace("/admin");
+      } else if (userRole === "ORGANIZER") {
+        router.replace("/dashboard");
       } else {
-        router.push("/"); // user biasa atau organizer ke homepage
+        router.replace("/");
       }
     }
-  }, [session, status, router]);
+  }, [isAuthenticated, status, userRole, router]);
 
-  // Saat loading session atau redirect, bisa tampil loading atau null
-  if (session) return null;
+  if (status === "loading" || isAuthenticated) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm />
+        <AuthGuard authPage={true}>
+          <LoginForm />
+        </AuthGuard>
       </div>
     </div>
   );
