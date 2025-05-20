@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const EventSlug = () => {
-  return (
-    <div>EventSlug</div>
-  )
-}
+  return <div>EventSlug</div>;
+};
 
-export default EventSlug
+export default EventSlug;

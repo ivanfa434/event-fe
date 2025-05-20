@@ -1,10 +1,8 @@
-import RegisterPage from '@/features/register'
-import React from 'react'
+import RegisterPage from "@/features/register";
+import React from "react";
 
 const Register = () => {
-  return (
-    <RegisterPage />
-  )
-}
+  return <RegisterPage />;
+};
 
-export default Register
+export default Register;

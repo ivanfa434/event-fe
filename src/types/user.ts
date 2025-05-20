@@ -4,6 +4,7 @@ export interface User {
   email: string;
   phoneNumber: string;
   referralCodeUsed: string;
+  role: string;
   profilePicture: string;
   password: string;
 }
