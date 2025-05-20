@@ -33,9 +33,7 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <NuqsProvider>
-            <NextAuthProvider>
-              {children}
-            </NextAuthProvider>
+            <NextAuthProvider>{children}</NextAuthProvider>
           </NuqsProvider>
         </ReactQueryProvider>
         <Toaster richColors position="top-right" />

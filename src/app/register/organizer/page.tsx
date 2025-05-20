@@ -1,10 +1,8 @@
-import RegisterOrganizerPage from '@/features/register-organizer'
-import React from 'react'
+import RegisterOrganizerPage from "@/features/register-organizer";
+import React from "react";
 
 const Organizer = () => {
-  return (
-    <RegisterOrganizerPage />
-  )
-}
+  return <RegisterOrganizerPage />;
+};
 
-export default Organizer
+export default Organizer;

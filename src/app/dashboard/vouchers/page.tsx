@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Vouchers = () => {
-  return (
-    <div>Vouchers</div>
-  )
-}
+  return <div>Vouchers</div>;
+};
 
-export default Vouchers
+export default Vouchers;

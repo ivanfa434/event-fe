@@ -21,6 +21,14 @@ const useLogin = () => {
     onSuccess: async (data) => {
       await signIn("credentials", { ...data, redirect: false });
       toast.success("Login success");
+      const role = data.user.role;
+      if (role === "ADMIN") {
+        router.push("/admin");
+      } else if (role === "ORGANIZER") {
+        router.push("/dashboard");
+      } else {
+        router.push("/");
+      }
       // onAuthSuccess({ user: data, accessToken: data.accessToken });
       router.push("/");
     },

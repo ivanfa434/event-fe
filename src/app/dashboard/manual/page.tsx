@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Manual_Transactions = () => {
-  return (
-    <div>Manual_Transactions</div>
-  )
-}
+  return <div>Manual_Transactions</div>;
+};
 
-export default Manual_Transactions
+export default Manual_Transactions;

@@ -15,7 +15,12 @@ const useRegister = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (payload: Omit<RegisterPayload, "id" | "profilePicture" | "confirmPassword">) => {
+    mutationFn: async (
+      payload: Omit<
+        RegisterPayload,
+        "id" | "profilePicture" | "confirmPassword" | "role"
+      >,
+    ) => {
       const { data } = await axiosInstance.post("/auth/register", payload);
       return data;
     },

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Organizer = () => {
-  return (
-    <div>Organizer</div>
-  )
-}
+  return <div>Organizer</div>;
+};
 
-export default Organizer
+export default Organizer;

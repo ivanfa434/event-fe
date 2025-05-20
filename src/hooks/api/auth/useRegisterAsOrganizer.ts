@@ -19,8 +19,16 @@ const useRegisterAsOrganizer = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (payload: Omit<RegisterPayload, "id" | "profilePicture" | "confirmPassword" | "fullName" | "role">) => {
-      const { data } = await axiosInstance.post("/auth/register-organizer", payload);
+    mutationFn: async (
+      payload: Omit<
+        RegisterPayload,
+        "id" | "profilePicture" | "confirmPassword" | "fullName" | "role"
+      >,
+    ) => {
+      const { data } = await axiosInstance.post(
+        "/auth/register-organizer",
+        payload,
+      );
       return data;
     },
     onSuccess: () => {

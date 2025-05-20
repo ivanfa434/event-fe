@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const EditTickets = () => {
-  return (
-    <div>EditTickets</div>
-  )
-}
+  return <div>EditTickets</div>;
+};
 
-export default EditTickets
+export default EditTickets;
