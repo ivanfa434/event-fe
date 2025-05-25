@@ -37,7 +37,7 @@ const useLogin = () => {
       }
 
       try {
-        const { data } = await axiosInstance.post("/auth/login", payload);
+        const { data } = await axiosInstance.post("api/auth/login", payload);
 
         resetLoginAttempts();
         return data;

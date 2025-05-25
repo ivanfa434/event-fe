@@ -33,7 +33,7 @@ const useRegisterAsOrganizer = () => {
     },
     onSuccess: () => {
       toast.success("Register success");
-      router.push("/login");
+      router.push("/api/auth/register-organizer");
     },
     onError: (error: AxiosError<any>) => {
       toast.error(error.response?.data.message);

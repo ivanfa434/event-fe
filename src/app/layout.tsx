@@ -6,6 +6,7 @@ import NuqsProvider from "@/providers/NuqsProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 import TokenProvider from "@/providers/TokenProvider";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <NuqsProvider>
             <NextAuthProvider>
+              <Navbar />
               <TokenProvider>{children}</TokenProvider>
             </NextAuthProvider>
           </NuqsProvider>

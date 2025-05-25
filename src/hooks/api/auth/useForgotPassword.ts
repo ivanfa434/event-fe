@@ -10,7 +10,7 @@ const useForgotPassword = () => {
   return useMutation({
     mutationFn: async (payload: Pick<User, "email">) => {
       const { data } = await axiosInstance.post(
-        "/auth/forgot-password",
+        "api/auth/forgot-password",
         payload,
       );
       return data;

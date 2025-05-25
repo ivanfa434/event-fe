@@ -21,7 +21,7 @@ const useRegister = () => {
         "id" | "profilePicture" | "confirmPassword" | "role"
       >,
     ) => {
-      const { data } = await axiosInstance.post("/auth/register", payload);
+      const { data } = await axiosInstance.post("/api/auth/register", payload);
       return data;
     },
     onSuccess: () => {
